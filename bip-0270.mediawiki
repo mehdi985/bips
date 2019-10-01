@@ -160,6 +160,11 @@ When a Bitcoin wallet application receives a PaymentRequest, it must authorize p
 PaymentRequest messages larger than 10 MB should be rejected by the wallet
 application, to mitigate denial-of-service attacks.
 
+====Forward compatibility====
+
+Similarly to BIP-21, additional fields can be added to the payment request, but if these fields change the nature of the request itself, a required field should be used.
+Variables which are prefixed with a "req-" are considered required. If a client does not implement a specific field which is prefixed with "req-", it MUST consider the entire payment request invalid. Any other variables which are not implemented, but which are not prefixed with a "req-", can be safely ignored.
+
 ===Payment===
 
 Payment messages are sent after the customer has authorized payment:
