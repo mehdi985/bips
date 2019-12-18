@@ -36,11 +36,11 @@ BIP44 reserves number 44 of the first level of BIP32 tree structure for the "pur
 This BIP281 reserves number 281 of the first level of BIP32 tree structure for the BIP43 "purpose": Hierarchical Deterministic Metanet ROOT nodes
 
 Thus, given a "m" master private key, its hierarchically generated Metanet root nodes will be:
-m / 281' / 0 --> is the first Metanet root node
-m / 281' / 1 --> is the second Metanet root node
-m / 281' / 2 --> is the third Metanet root node
-...
-m / 281' / n --> is the n+1 Metanet root node
+  m / 281' / 0 --> is the first Metanet root node
+  m / 281' / 1 --> is the second Metanet root node
+  m / 281' / 2 --> is the third Metanet root node
+  ...
+  m / 281' / n --> is the n+1 Metanet root node
 
 (Apostrophe indicates that BIP32 hardened derivation is used).
 
