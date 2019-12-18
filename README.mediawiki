@@ -785,4 +785,11 @@ Bitcoin (BSV) Improvement Proposals. To collaborate on new BIPs, please join [ht
 | Roger Taylor
 | Standard
 | Draft
+|-
+| [[bip-0281.mediawiki|281]]
+| Applications
+| Hierarchical Deterministic Metanet ROOT nodes
+| Jaime Salom
+| Standard
+| Proposed
 |}
