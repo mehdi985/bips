@@ -9,37 +9,31 @@
   Comments-URI: https://github.com/moneybutton/bips/wiki/Comments:BIP-0281
 </pre>
 
+
 ==Abstract==
 
-BIP281 reserves the number 281 of the first level of BIP32 tree structure for the "purpose": Hierarchical Deterministic 
+BIP281 reserves the number 281 of the first level of BIP32 tree structure for the "purpose": Hierarchical Deterministic Metanet ROOT nodes.
 
-Metanet ROOT nodes.
 
 ==Motivation==
 
 The relationship (edge) between any metanet child node with its parent is indelibly established in the bitcoin's Metanet.
 
-However, the relationship between a parentless node (a root node) and the master key (if any) that generated that root 
+However, the relationship between a parentless node (a root node) and the master key (if any) that generated that root node is not established (nor is it desirable in most cases) in the Metanet. A Metanet app needs to know where to look for possible already generated root nodes, and it needs to know where to create Metanet root nodes that can be easily found by other Metanet apps that work with deterministic generation of Metanet nodes.
 
-node is not established (nor is it desirable in most cases) in the Metanet. A Metanet app needs to know where to look for 
-
-possible already generated root nodes, and it needs to know where to create Metanet root nodes that can be easily found 
-
-by other Metanet apps that work with deterministic generation of Metanet nodes.
 
 ==Background==
 
 BIP32 describes hierarchical deterministic wallets which can be shared partially or entirely with different systems
-BIP43 defines the "purpose" of the first level of BIP32 tree structure: m/purpose'/...
-BIP44 reserves number 44 of the first level of BIP32 tree structure for the "purpose": Multi-Account Hierarchy for 
 
-Deterministic Wallets: m/44'/...
+BIP43 defines the "purpose" of the first level of BIP32 tree structure: m/purpose'/...
+
+BIP44 reserves number 44 of the first level of BIP32 tree structure for the "purpose": Multi-Account Hierarchy for Deterministic Wallets: m/44'/...
+
 
 ==Specification==
 
-This BIP281 reserves number 281 of the first level of BIP32 tree structure for the BIP43 "purpose": Hierarchical 
-
-Deterministic Metanet ROOT nodes
+This BIP281 reserves number 281 of the first level of BIP32 tree structure for the BIP43 "purpose": Hierarchical Deterministic Metanet ROOT nodes
 
 Thus, given a "m" master private key, its hierarchically generated Metanet root nodes will be:
   m / 281' / 0 --> is the first Metanet root node
@@ -49,6 +43,7 @@ Thus, given a "m" master private key, its hierarchically generated Metanet root 
   m / 281' / n --> is the n+1 Metanet root node
 
 (Apostrophe indicates that BIP32 hardened derivation is used).
+
 
 ==Reference==
 
