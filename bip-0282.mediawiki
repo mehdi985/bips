@@ -1,6 +1,6 @@
 <pre>
   BIP: 282
-  Title: Request URIs with inputs
+  Title: Payment requests with inputs
   Author: Aleksandar Dinkov
   Created: 2019-12-19
 </pre>
