@@ -1,0 +1,119 @@
+<pre>
+  BIP: 282
+  Title: Request URIs with inputs
+  Author: Aleksandar Dinkov
+  Created: 2019-12-19
+</pre>
+
+==Abstract==
+
+This BIP describes an extension to BIP-270 and BIP-275 Payment Requests to support more complex scenarios for the simplified payment protocol (BIP-270).
+The payment requests can now specify inputs that should be included in the payment transaction.
+Payments that do not contain the requested inputs should be considered invalid.
+
+==Motivation==
+
+Allows services to construct more complex sets of requirements for the transactions to be added to the BIP-270 payment request.
+
+==Specification==
+
+The PaymentRequest is extended with 1 additional parameter.
+This works both with a BIP-270 payment requests, or with BIP-275 Request URIs.
+
+===Parameters===
+
+{|
+! Parameter
+! Required
+! Description
+|-
+| req-inputs
+| Yes
+| an URI escaped string that is a valid JSON array of inputs to be included in the transaction.
+|}
+
+===Input Object===
+
+{|
+! Parameter
+! Type
+! Required
+! Description
+|-
+| scriptSig
+| string
+| Yes
+| The hexadecimal unlocking script for the input UTXO (or an empty string)
+|-
+| txid
+| string
+| Yes
+| The transaction index of the transaction containing the input UTXO.
+|-
+| vout
+| integer
+| Yes
+| The index of the UTXO in the transaction.
+|-
+| value
+| integer
+| Yes
+| The amount of satoshies locked in the input UTXO.
+|}
+
+===Details===
+
+When Bitcoin wallet software that supports this BIP receives a BIP-270 PaymentRequest (or a BIP-275 payment request URI) with a "req-inputs" parameter, it MUST include all of the mentioned inputs in the transaction sent to the BIP-270 Payment endpoint.
+
+Thanks to the peer-to-peer nature of BIP-270, all other changes can happen only in the software of the BIP-270 payment receiver. They would be responsible to handle the validation of these outputs and inputs as per their specific use case.
+
+It is permitted for the receiver to send an invalid (or empty) scriptSig. The receiver is expected to replace it with a valid one after receiving the payment data from the sender.
+
+In order to make the procedure faster Bitcoin Wallet Software that supports this protocol SHOULD NOT validate the inputs that they receive. Instead, wallets SHOULD simply ASSUME that the inputs are correct. This is not a security issue, because the receiver is incentivised to send correct inputs (the receiver won't get paid if the final transaction is not valid).
+
+This type of one sided validation also allows for some interesting payment schemes, which require the usage of inputs that the sender will consider invalid, but which the receiver can convert to valid.
+
+===Client Behaviour===
+
+When a client receives a payment request with 'req-inputs' it must include ALL the inputs into the BIP-270 payment.
+While constructing the payment, the client is expected to add whatever inputs and outpus are required.
+
+If the value of the provided inputs is greater than the value of the requested outputs, that means that the transaction requester is in fact GIVING money to the client. The client is expected to construct a transaction that redirects the extra value to itself with an extra output.
+
+If the value of the provided inputs is lesser than the value of the requested outputs, that means that the transaction requester is asking for money. The client is expected to add inputs which match the required value and network fee. Any leftover value from these added inputs can return to the client with an aditional output.
+
+If the client is adding inputs, the client MUST use a sighash modifier "SIGHASH_ANYONECANPAY". It is up to the client to choose which sighash type to use (ALL, SINGLE, NONE), but the sighash modifier is mandatory. The reason is that the inputs provided by the payment requester are likely to change after the payment message is sent.
+
+==Compatibility==
+
+Wallet software that does not support this BIP will simply see the required parameter "req-inputs" and know that it cannot handle this payment request (thanks to the same pattern being used in both BIP-21 and BIP-270). It will notify the user of the incompatability.
+
+This BIP is also compatible with BIP-270 as it either extends the PaymentRequest part of the BIP-270 protocol, or skips it completely using a BIP-275 URI.
+
+==References==
+
+This proposal builds upon ideas described in:
+ - BIP-21
+ - BIP-270
+ - BIP-275
+
+==Examples==
+
+==== BIP-270 PaymentRequest ====
+
+The payment request will simply contain the additional property
+
+ req-inputs = [
+        {
+            "value": 2557931,
+            "txid": "4d5fcc930d612a23090198a79a9e6f86b5297f480accdbb6f3b2a3a2535dc640",
+            "vout": 0,
+            "scriptSig": "546865207061796d656e742072656365697665722077696c6c207265706c61636520746869732077697468207468652061637475616c207369676e61747572652e"
+        }
+ ]
+
+==== BIP-275 URI ====
+
+Here is a BIP-275 PaymentRequest URI with the exact same input in it.
+
+ bitcoin:?req-bip275&paymentUrl=https%3A%2F%2Fexample.com%2Fpayments&network=bitcoin&outputs=%5B%7B%22amount%22%3A0.01%2C%22script%22%3A%2276a914808a0e92d0d42b650f083dd223d556b410699d6f88ac%22%7D%5D&req-inputs=%5B%7B%22value%22%3A2557931%2C%22txid%22%3A%224d5fcc930d612a23090198a79a9e6f86b5297f480accdbb6f3b2a3a2535dc640%22%2C%22vout%22%3A0%2C%22scriptSig%22%3A%22546865207061796d656e742072656365697665722077696c6c207265706c61636520746869732077697468207468652061637475616c207369676e61747572652e%22%7D%5D
