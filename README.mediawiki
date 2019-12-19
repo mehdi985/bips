@@ -792,4 +792,13 @@ Bitcoin (BSV) Improvement Proposals. To collaborate on new BIPs, please join [ht
 | Jaime Salom
 | Standard
 | Proposed
+|-
+| [[bip-0282.mediawiki|281]]
+| Applications
+| Payment requests with inputs
+| Aleksandar Dinkov
+| Standard
+| Draft
 |}
+
+
