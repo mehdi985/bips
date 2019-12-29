@@ -793,7 +793,7 @@ Bitcoin (BSV) Improvement Proposals. To collaborate on new BIPs, please join [ht
 | Standard
 | Proposed
 |-
-| [[bip-0282.mediawiki|281]]
+| [[bip-0282.mediawiki|282]]
 | Applications
 | Payment requests with inputs
 | Aleksandar Dinkov
