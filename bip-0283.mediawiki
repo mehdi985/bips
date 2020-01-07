@@ -1,0 +1,57 @@
+<pre>
+  BIP: 283
+  Layer: Applications
+  Title: Hierarchical Deterministic symmetric encryption/decription keys for Metanet ROOT nodes
+  Author: Jaime Salom <jaimesalom@moneybutton.com>
+  Type: Informational
+  Status: Proposal
+  Created: 2020-01-06
+  Comments-URI: https://github.com/moneybutton/bips/wiki/Comments:BIP-0283
+</pre>
+
+
+==Abstract==
+
+BIP283 reserves the number 283 of the first level of BIP32 tree structure for the "purpose": Hierarchical Deterministic symmetric encryption/decription keys for Metanet ROOT nodes.
+
+
+==Motivation==
+
+Given that files stored in the blockchain are publicly accessible to anyone, in certain uses encryption will be required.
+
+To avoid collision between wallets/apps, this BIP 283 reserves the derivation path 283' for Metanet root nodes' data encryption/decryption keys.
+
+Thus, a Metanet root node created on route m / 281 '/ 0 will have its encryption/decryption keys on route m / 283' / 0. 
+For example, the 256 bits of the "x" coordinate of the public key obtained from m / 283 '/ 0 can be used as the symmetric encryption/decryption key, and offers faily good 256-bit randomness for symmetric encryption algorithms such as AES-256.
+
+
+==Background==
+
+BIP32 describes hierarchical deterministic wallets which can be shared partially or entirely with different systems
+
+BIP43 defines the "purpose" of the first level of BIP32 tree structure: m/purpose'/...
+
+BIP44 reserves number 44 of the first level of BIP32 tree structure for the "purpose": Multi-Account Hierarchy for Deterministic Wallets: m/44'/...
+
+BIP281 reserves the number 281 of the first level of BIP32 tree structure for the "purpose": Hierarchical Deterministic Metanet ROOT nodes.
+
+
+==Specification==
+
+This BIP283 reserves number 283 of the first level of BIP32 tree structure for the BIP43 "purpose": Hierarchical Deterministic symmetric encryption keys for Metanet ROOT nodes
+
+Thus, given a "m" master private key, the hierarchically generated symmetric encryption keys for Metanet root nodes will be:
+  m / 283' / 0  -->  is the symmetric encryption key path of the 1st metanet root node
+  m / 283' / 1  -->  is the symmetric encryption key path of the 2nd metanet root node 
+  m / 283' / 2  -->  is the symmetric encryption key path of the 3rd metanet root node 
+  ...
+
+(Apostrophe indicates that BIP32 hardened derivation is used).
+
+
+==Reference==
+
+* [[bip-0032.mediawiki|BIP32 - Hierarchical Deterministic Wallets]]
+* [[bip-0043.mediawiki|BIP43 - Purpose Field for Deterministic Wallets]]
+* [[bip-0044.mediawiki|BIP44 - Multi-Account Hierarchy for Deterministic Wallets]]
+* [[bip-0281.mediawiki|BIP281 - Hierarchical Deterministic Metanet ROOT nodes]]
