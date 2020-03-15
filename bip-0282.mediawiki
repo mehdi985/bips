@@ -58,7 +58,7 @@ This works both with a BIP-270 payment requests, or with BIP-275 Request URIs.
 | value
 | integer
 | Yes
-| The amount of satoshies locked in the input UTXO.
+| The amount of satoshis locked in the input UTXO.
 |}
 
 ===Details===
