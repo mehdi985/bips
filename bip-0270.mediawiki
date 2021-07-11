@@ -17,7 +17,7 @@ payment process.
 This BIP is a simplified update to BIP 70 with a few important differences.
 First, we have switched from protobufs (protocol buffers) to JSON. Second, we
 have removed the redundant signatures from the messages and define
-authentication to happen at the communication later (usually HTTPS). Thirdly, we
+authentication to happen at the communication layer (usually HTTPS). Thirdly, we
 add a notion of optional output values and output descriptions. There are a few
 other minor differences such as removing the redundant PaymentDetails object and
 changing all variable names to camelCase, and changing some names and terms.
