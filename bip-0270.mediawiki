@@ -26,7 +26,7 @@ TODO: Create a spec for NFC application ID for this. Ask Rafa.
 
 ==Motivation==
 
-The naive Bitcoin payment protocol operates as follows:
+The native Bitcoin payment protocol operates as follows:
 
 # Customer adds items to an online shopping basket, and decides to pay using Bitcoin.
 # Payment host generates a unique payment address, associates it with the customer's order, and asks the customer to pay.
@@ -34,7 +34,7 @@ The naive Bitcoin payment protocol operates as follows:
 # Customer authorizes payment to the payment host's address and broadcasts the transaction through the Bitcoin p2p network.
 # Payment host's server detects payment and after sufficient transaction confirmations considers the transaction final.
 
-There are several major problems with the naive approach. First, it assumes the
+There are several major problems with the native approach. First, it assumes the
 customer broadcasts the transaction, which requires that the customer connect to
 the Bitcoin p2p network and for the payment host to wait for the transaction to
 propagate before accepting the payment. Second, it has no ability to allow for
@@ -42,7 +42,7 @@ multiple outputs, which is necessary for many interesting use-cases of Bitcoin
 such as OP_RETURN data. Thirdly, there is no reliable way for a payment host to
 refund a payment in case of an issue.
 
-This BIP extends the naive protocol to simplify wallets, add new features, and make every future interaction on-chain possible:
+This BIP extends the native protocol to simplify wallets, add new features, and make every future interaction on-chain possible:
 
 # Human-readable, secure payment destinations-- customers will be asked to authorize payment to "example.com" instead of an inscrutable, 34-character bitcoin address.
 # Secure proof of payment, which the customer can use in case of a dispute with the payment host.
